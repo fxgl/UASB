@@ -12,8 +12,6 @@ $render->setMetaDescription("dotBunny Asset Server.");
 foreach(AServer::GetDatabases() as $db)
 	$render->addContent(new W_DatabaseOverview($db));
 
-
-
 $render->display();
 
 ?>

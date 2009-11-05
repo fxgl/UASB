@@ -140,6 +140,7 @@ class Render
 		$projects = AServer::GetDatabaseProjectNames();
 		$select = "";
 		$found = false;
+
 		for ( $x = 0; $x < count($databases); $x++) {
 			$select .= "<option value=\"" . $databases[$x] . "\"";
 			if ( addslashes($_GET['db']) == $databases[$x] ) {
@@ -154,9 +155,6 @@ class Render
 		}
 
 		$smarty->assign("selectdatabase", $select);
-
-
-
 
 		$smarty->assign("title", $this->pageTitle);
 		$smarty->assign("metaDescription", $this->metaDescription);
