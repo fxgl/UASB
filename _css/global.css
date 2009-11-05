@@ -22,8 +22,7 @@ html,body {
 	padding: 10px 0px 0px 0px;
 }
 
-#header select {
-	margin-top: 10px;
+#header .right {
 	float: right;
 }
 

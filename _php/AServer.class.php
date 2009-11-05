@@ -24,6 +24,11 @@ class AServer
 				}
 			}
 			$_SESSION['databases'] = $databases;
+
+			if ( !empty($_SESSION['uasb_username']) && count($databases) == 0 ) {
+				session_destroy();
+				die("User not authorized for any databases.");
+			}
 		}
 
 
