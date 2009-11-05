@@ -17,7 +17,7 @@
 <div class="maincont">
 <div id="content">
 <div id="header">
-<h1><a class="title" href="/">Unity</a> &raquo; {if $headerLink}<a class="title" href="{$headerLink}">{/if}{$headerLine}{if $headerLink}</a>{/if}</h1><br /><br />
+<h1><a class="title" href="/">Unity</a> &raquo; {if $headerLink}<a class="title" href="{$headerLink}">{/if}{$headerLine}{if $headerLink}</a>{/if}</h1><select name="database" onChange="location = 'database.php?db=' + this.options[this.selectedIndex].value;">{$selectdatabase}</select><br /><br />
 </div>
 {$content}
 {$analytics}

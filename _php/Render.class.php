@@ -11,17 +11,17 @@ class Render
 	protected $metaKeywords = "";
 	protected $pageAdditionalHead = "";
 	protected $pageAdditionalFooter = "";
-	protected $pageOnLoad = "";	
+	protected $pageOnLoad = "";
 	protected $lastBody = "";
 	protected $breadCrumbs;
 	protected $page = "";
 	protected $jquery = "";
-	
+
 	public function __construct($page)
 	{
 		$this->breadCrumbs = new BreadCrumbs();
 		$this->page = $page;
-		
+
 		AServer::$render = $this;
 	}
 
@@ -32,7 +32,7 @@ class Render
 	{
 		$this->jquery .= $script . "\n";
 	}
-	
+
 	/**
 	* @desc Get our breadcrumbs object
 	*/
@@ -40,7 +40,7 @@ class Render
 	{
 		return $this->breadCrumbs;
 	}
-	
+
 	/**
 	* @desc Set our H1 tag
 	*/
@@ -49,7 +49,7 @@ class Render
 		$this->pageHeaderLine = $headerLine;
 		$this->pageHeaderLink = $headerLink;
 	}
-	
+
 	/**
 	* @desc Set our secondary header
 	*/
@@ -57,7 +57,7 @@ class Render
 	{
 		$this->pageHeaderLine2 = $headerLine2;
 	}
-	
+
 	/**
 	* @desc Set the content variable
 	*/
@@ -65,7 +65,7 @@ class Render
 	{
 		$this->pageContent = $content;
 	}
-	
+
 	/**
 	* @desc Add some content to our page
 	*/
@@ -73,7 +73,7 @@ class Render
 	{
 		$this->pageContent .= $content;
 	}
-	
+
 	/**
 	* @desc Override the title with something else
 	*/
@@ -81,7 +81,7 @@ class Render
 	{
 		$this->pageTitle = $title;
 	}
-	
+
 	/**
 	* @desc Add info between our <head> tags
 	*/
@@ -89,7 +89,7 @@ class Render
 	{
 		$this->pageAdditionalHead .= $head;
 	}
-	
+
 	/**
 	* @desc Add info to our footer
 	*/
@@ -97,7 +97,7 @@ class Render
 	{
 		$this->pageAdditionalFooter .= $footer;
 	}
-	
+
 	/**
 	* @desc Add html just before the closing body tag
 	*/
@@ -105,7 +105,7 @@ class Render
 	{
 		$this->lastBody .= $html;
 	}
-	
+
 	/**
 	* @desc Set a function for onload
 	*/
@@ -129,38 +129,63 @@ class Render
 	{
 		$this->metaKeywords = $keywords;
 	}
-	
+
 	public function display()
-	{			
+	{
 		$smarty = new SmartyFlashbang();
+
+
+		// Database Select
+		$databases = AServer::GetDatabases();
+		$projects = AServer::GetDatabaseProjectNames();
+		$select = "";
+		$found = false;
+		for ( $x = 0; $x < count($databases); $x++) {
+			$select .= "<option value=\"" . $databases[$x] . "\"";
+			if ( addslashes($_GET['db']) == $databases[$x] ) {
+				$select .= " selected";
+				$found = true;
+			}
+			$select .= ">" . $projects[$x] . "</option>";
+		}
+
+		if ( !$found ) {
+			$select = '<option value="Select A Database">Select A Database</option>' . $select;
+		}
+
+		$smarty->assign("selectdatabase", $select);
+
+
+
+
 		$smarty->assign("title", $this->pageTitle);
 		$smarty->assign("metaDescription", $this->metaDescription);
 		$smarty->assign("metaKeywords", $this->metaKeywords);
-		
+
 		$smarty->assign("breadcrumbs", $this->breadCrumbs->fetch());
 		$smarty->assign("additionalHead", $this->pageAdditionalHead);
 		$smarty->assign("additionalFooter", $this->pageAdditionalFooter);
 		$smarty->assign("bodyonload", $this->pageOnLoad);
-		
+
 		$smarty->assign("headerLine", $this->pageHeaderLine);
 		$smarty->assign("headerLink", $this->pageHeaderLink);
-		
+
 		$smarty->assign("headerLine2", $this->pageHeaderLine2);
 		$smarty->assign("content", $this->pageContent);
 		$smarty->assign("lastbody", $this->lastBody);
-		
+
 		$smarty->assign("jquery", $this->jquery);
-		
+
 		$smarty->assign("page", $this->page);
 
-		
+
 		if(Debug::isDebug())
 			$smarty->assign("debug", Debug::footer());
-		
+
 		if ( $_SESSION['uasb_username'] && !stristr($_SERVER['REQUEST_URI'], "login.php")) {
 			$smarty->assign("logged", 1);
 		}
-		
+
 		$smarty->display("layout.tpl");
 	}
 }

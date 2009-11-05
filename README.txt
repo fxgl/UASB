@@ -3,7 +3,9 @@ Unity Asset Server Browser
 
 Hey everyone, first and foremost the orginal version of this was created by 
 Matthew Wegner @ Flashbang Studios. He provided an excellent base to work with,
-and I simply added to his outstanding job.
+and I simply added to his outstanding job. You can find his original work here:
+
+http://technology.blurst.com/unity-asset-server-web-browser/
 
 REQUIREMENTS
 - PHP w/ PostgreSQL compiled in
