@@ -21,6 +21,8 @@ foreach ($_POST as $key => $input_arr) {
 
 session_start();
 if ( addslashes($_GET['action']) == "logout" ) {
+	unset($_SERVER['PHP_AUTH_USER']);
+	unset($_SERVER['PHP_AUTH_PW']);
 	unset($_COOKIE[session_name()]);
 	session_unset("databases");
 	session_unset("projects");
