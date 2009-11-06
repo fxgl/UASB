@@ -151,7 +151,7 @@ class Render
 		}
 
 		if ( !$found ) {
-			$select = '<option value="Select A Database">Select A Database</option>' . $select;
+			$select = '<option value="Select A Database" selected>Select A Database</option>' . $select;
 		}
 
 		$smarty->assign("selectdatabase", $select);
