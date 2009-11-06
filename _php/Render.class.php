@@ -180,7 +180,7 @@ class Render
 		if(Debug::isDebug())
 			$smarty->assign("debug", Debug::footer());
 
-		if ( $_SESSION['uasb_username'] && !stristr($_SERVER['REQUEST_URI'], "login.php")) {
+		if ( $_SESSION['databases']) {
 			$smarty->assign("logged", 1);
 		}
 

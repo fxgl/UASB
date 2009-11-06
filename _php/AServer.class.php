@@ -41,7 +41,7 @@ class AServer
 	*/
 	static function GetDatabases()
 	{
-		return AServer::GetDatabasesByUsername($_SESSION['uasb_username']);
+		return AServer::GetDatabasesByUsername($_SERVER['PHP_AUTH_USER']);
 	}
 
 	static function GetDatabaseProjectName($db) {

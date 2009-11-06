@@ -6,7 +6,7 @@ $render = new Render("index");
 
 $render->setPageTitle("Home");
 $render->setHeaderLine("Welcome");
-$render->setMetaDescription("dotBunny Asset Server.");
+$render->setMetaDescription("Unity Asset Server Browser");
 
 // and an overview on each
 foreach(AServer::GetDatabases() as $db)

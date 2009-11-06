@@ -20,20 +20,28 @@ foreach ($_POST as $key => $input_arr) {
 }
 
 session_start();
+if ( addslashes($_GET['action']) == "logout" ) {
+	unset($_COOKIE[session_name()]);
+	session_unset("databases");
+	session_unset("projects");
+	session_destroy();
+	session_start();
+}
 
-if ( (empty($_SESSION['uasb_username']) || empty($_SESSION['uasb_password'])) &&  !stristr($_SERVER['REQUEST_URI'], "login.php")) {
-	if ( $_SERVER['REQUEST_URI'] == "/" ) {
-		$_SESSION['last'] = "";
+if ( (empty($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW']))) {
+	$test = @pg_connect("host=" . PG_HOST . " port=" . PG_PORT . " dbname=postgres user=" . $_SERVER['PHP_AUTH_USER'] . " password=" . $_SERVER['PHP_AUTH_PW']);
+	if ( $test ) {
+		$_SESSION['databases'] = AServer::GetDatabases();
+		$_SESSION['projects'] = AServer::GetDatabaseProjectNames();
 	} else {
-		$_SESSION['last'] = $_SERVER['REQUEST_URI'];
+		header("WWW-Authenticate: Basic realm=\"Unity Asset Server Browser\"");
+		header("HTTP/1.0 401 Unauthorized");
+		die("Authorization Required");
 	}
-	header("Location:" . HTTPROOT . "login.php");
-	die();
 }
 
 
-
-// autoload our classes (whew!)
+// autoload our classes (whew!)s
 function __autoload($class) {
 	if(substr($class, 0, 2) == "W_")
 		require_once(ROOT . "_php_widgets/" . substr($class, 2) . ".php");

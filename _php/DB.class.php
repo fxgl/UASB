@@ -31,7 +31,7 @@ class DB {
 	public function connect($db = "postgres")
 	{
 		$this->activeDB = $db;
-		$this->connect = pg_connect("host=" . PG_HOST . " port=" . PG_PORT . " dbname=$db user=" . PG_USER . " password=" . PG_PASSWORD);
+		$this->connect = pg_connect("host=" . PG_HOST . " port=" . PG_PORT . " dbname=$db user=" . PG_USER . " password=" . PG_PASSWORD) or Die("Unable to connect to dataabase.");
 	}
 
 	/**
