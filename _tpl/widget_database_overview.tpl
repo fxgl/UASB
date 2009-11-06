@@ -1,5 +1,5 @@
 <h3>{$projectname}:</h3>
-<div class="box">
+<div class="box"><a href="rss.php?db={$database}&i=15" style="float: right"><img border="0" src="_images/rss.jpg"></a>
 <table>
 <tr><td align="right">More:</td><td><a href="database.php?db={$database}">View detailed report</a></td></tr>
 <tr><td align="right" width="150">Versions:</td><td>{$versions}</td></tr>
