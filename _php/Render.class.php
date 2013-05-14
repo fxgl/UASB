@@ -143,7 +143,7 @@ class Render
 
 		for ( $x = 0; $x < count($databases); $x++) {
 			$select .= "<option value=\"" . $databases[$x] . "\"";
-			if ( addslashes($_GET['db']) == $databases[$x] ) {
+			if ($_GET['db'] && addslashes($_GET['db']) == $databases[$x] ) {
 				$select .= " selected";
 				$found = true;
 			}
