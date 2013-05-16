@@ -70,6 +70,6 @@ class W_AssetDetails extends Widget
 		$this->smarty->assign("database", $db);
 		$this->smarty->assign("projectname",AServer::GetDatabaseProjectName($db));
 		
-		$this->smarty->assign("project", $project);
+		//$this->smarty->assign("project", $project);
 	}
 }
