@@ -12,7 +12,7 @@ class W_DatabaseUpdates extends Widget
 		parent::__construct();
 		
 		DB::getDB()->connect($db);
-		
+		$whereSerial="";
 		if($serial)
 			$whereSerial = "AND c.serial = $serial";
 		

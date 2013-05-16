@@ -27,6 +27,7 @@ class W_ScriptsTodo extends Widget
 			ORDER BY a.name;
 		";
 		$result = DB::getDB()->query($query);
+		$todos=[];
 		while($row = pg_fetch_object($result))
 		{
 			pg_query("begin");
