@@ -20,7 +20,7 @@ class W_DatabaseUpdates extends Widget
 		$query = "
 			SELECT p.username, c.serial, c.description, c.creator, extract(epoch from c.commit_time) as time
 			FROM changeset c, person p
-			WHERE c.creator = p.serial
+			WHERE c.creator = p.serial  and commit_time is not null
 				$whereSerial
 			ORDER BY commit_time DESC
 		";
